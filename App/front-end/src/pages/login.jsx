@@ -56,7 +56,7 @@ function Login() {
           </button>
           <br />
           <p>
-            Não tem uma conta? <a href="/">Crie uma</a>
+            Não tem uma conta? <a href="/newUser">Crie uma</a>
           </p>
         </form>
       </section>
