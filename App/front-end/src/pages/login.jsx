@@ -46,7 +46,7 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </label>
-          <a href="/">Recuperar senha</a>
+          <a href="/newPassword">Recuperar senha</a>
           <button 
             className="login_button"
             type="submit"

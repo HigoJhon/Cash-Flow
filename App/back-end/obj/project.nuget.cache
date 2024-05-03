@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "YsT3O1m2LfWlcK2ohxgQw1BRu5E1t8lGBwT71yqKtIQKJhPisTWOXYwMkFQ7EqdIvLQ5L0L88qJUq5sq7vy2xA==",
+  "success": true,
+  "projectFilePath": "/home/higojhon/Documentos/Cash-Flow/App/back-end/back-end.csproj",
+  "expectedPackageFiles": [
+    "/home/higojhon/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/home/higojhon/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/home/higojhon/.nuget/packages/swashbuckle.aspnetcore/6.5.0/swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "/home/higojhon/.nuget/packages/swashbuckle.aspnetcore.swagger/6.5.0/swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "/home/higojhon/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.5.0/swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "/home/higojhon/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.5.0/swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
