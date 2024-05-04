@@ -1,0 +1,9 @@
+.container-home {
+    margin: 0;
+    background-color: #c7cacc;
+}
+
+.div-home {
+    display: flex;
+    height: 100vh;
+}
