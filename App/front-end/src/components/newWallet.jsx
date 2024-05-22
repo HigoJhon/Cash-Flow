@@ -2,6 +2,7 @@ import propTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Loading from './loading';
+import "../style/components/newWallet.css";
 
 function NewWallet({ setPage, setActiveButton }) {
     const [loading, setLoading] = useState(true);
@@ -23,20 +24,20 @@ function NewWallet({ setPage, setActiveButton }) {
     }
 
     return (
-        <div>
-            <h1>New Wallet</h1>
+        <div className='container-wallet'>
+            <h1 className='h1-wallet'>New Wallet</h1>
             <div>
-                <form>
+                <form className='form-wallet'>
                     <label htmlFor="name">Name: </label>
-                    <input type="text" id="name" name="name" placeholder="João Silva"/>
+                    <input className='input-wallet' type="text" id="name" name="name" placeholder="House"/>
                     <br />
                     <label htmlFor="description">Description: </label>
-                    <input type="text" id="description" name="description" placeholder="Gastos com viagem"/>
+                    <input className='input-wallet' type="text" id="description" name="description" placeholder="Home renovation expenses"/>
                     <br />
-                    <label htmlFor="balance">investment: </label>
-                    <input type="number" id="investment" name="investment" placeholder="0,00"/>
+                    <label htmlFor="balance">Investment: </label>
+                    <input className='input-wallet' type="number" id="investment" name="investment" placeholder="0,00"/>
                     <br />
-                    <button type="submit" onClick={ () => handleClick() }>Create</button>
+                    <button className='button-wallet' type="submit" onClick={ () => handleClick() }>Create</button>
                 </form>
             </div>
         </div>
