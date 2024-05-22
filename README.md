@@ -1,4 +1,4 @@
-# cash-flow
+# Cash-Flow: Organize suas finanças com um só app! ✈️
 
 ####
 
