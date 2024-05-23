@@ -2,68 +2,85 @@ using back_end.Models;
 using back_end.Repository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace back_end.Controllers;
-
-[ApiController]
-[Route("[controller]")]
-
-public class UserController : Controller
+namespace back_end.Controllers
 {
-    protected readonly IUserRepository _userRepository;
-
-    public UserController(IUserRepository userRepository)
+    [ApiController]
+    [Route("[controller]")]
+    public class UserController : Controller
     {
-        _userRepository = userRepository;
-    }
+        protected readonly IUserRepository _userRepository;
 
-    [HttpGet]
-    public IActionResult GetUser()
-    {
-        User user = _userRepository.GetAll();
-        return Ok(user);
-    }
-
-    [HttpGet("{id}")]
-    public IActionResult GetUser(int id)
-    {
-        User user = _userRepository.GetUser(id);
-        if (user == null)
+        public UserController(IUserRepository userRepository)
         {
-            return NotFound();
+            _userRepository = userRepository;
         }
-        return Ok(user);
-    }
 
-    [HttpPost]
-    public IActionResult AddUser([FromBody] User user)
-    {
-        User newUser = _userRepository.AddUser(user);
-        return CreatedAtAction(nameof(GetUser), new { id = newUser.NameId }, newUser);
-    }
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] User user)
+        {
+            if (user.Email == null || user.Password == null)
+            {
+                return BadRequest();
+            }
+            
+            User loginUser = _userRepository.Login(user.Email!, user.Password!);
+            if (loginUser == null)
+            {
+                return NotFound();
+            }
+            return Ok("Login successful");
+        }
 
-    [HttpPut("{id}")]
-    public IActionResult UpdateUser(int id, [FromBody] User user)
-    {
-        if (id != user.NameId)
+        [HttpGet("{id}")]
+        public IActionResult GetUser(int id)
         {
-            return BadRequest();
+            User user = _userRepository.GetUser(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
         }
-        User updatedUser = _userRepository.UpdateUser(user);
-        if (updatedUser == null)
-        {
-            return NotFound();
-        }
-        return Ok(updatedUser);
-    }
 
-    [HttpDelete("{id}")]
-    public IActionResult DeleteUser(int id)
-    {
-        User user = _userRepository.DeleteUser(id);
-        if (user == null)
+        [HttpPost("add")]
+        public IActionResult AddUser([FromBody] User user)
         {
-            return NotFound();
+            try
+            {
+                User newUser = _userRepository.AddUser(user);
+                return CreatedAtAction(nameof(GetUser), new { id = newUser.NameId }, newUser);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest( new { message = e.Message } );
+            }
         }
-        return Ok(user);
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateUser(int id, [FromBody] User user)
+        {
+            if (id != user.NameId)
+            {
+                return BadRequest();
+            }
+
+            User updatedUser = _userRepository.UpdateUser(user);
+            if (updatedUser == null)
+            {
+                return NotFound();
+            }
+            return Ok(updatedUser);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteUser(int id)
+        {
+            User user = _userRepository.DeleteUser(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
     }
 }

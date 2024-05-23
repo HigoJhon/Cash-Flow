@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace back_end.Context
 {
-    public interface IAppContext
+    public interface IWalletContext
     {
         DbSet<User> Users { get; set; }
 

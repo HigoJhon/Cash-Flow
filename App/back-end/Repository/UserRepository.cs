@@ -5,20 +5,24 @@ namespace back_end.Repository
 {
     public class UserRepository : IUserRepository
     {
-        private readonly IAppContext _context;
+        private readonly IWalletContext _context;
 
-        public UserRepository(IAppContext context)
+        public UserRepository(IWalletContext context)
         {
             _context = context;
         }
 
-        public User GetAll()
+        public User Login(string email, string password)
         {
-            throw new NotImplementedException();
+            return _context.Users.SingleOrDefault(user => user.Email == email && user.Password == password)!;
         }
 
         public User AddUser(User user)
         {
+            if (_context.Users.Any(u => u.Email == user.Email))
+            {
+                throw new ArgumentException("Email already exists");
+            }
             _context.Users.Add(user);
             _context.SaveChanges();
             return user;

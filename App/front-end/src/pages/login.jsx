@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../style/pages/login.css";
 import { Navigate } from "react-router-dom";
+import { postRequest } from "../Service/Request";
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -8,20 +9,24 @@ function Login() {
   const [isLogged, setIsLogged] = useState(false);
   const [error, setError] = useState('');
 
+  useEffect(() => {}, [email, password]);
+
   const login = async (e) => {
     e.preventDefault();
 
     try {
       if (email && password) {
+        const response = await postRequest('/User/login', { email, password });
+        console.log(response);
         setIsLogged(true);
       } else {
         setError('Por favor, insira email e senha.');
       }
     } catch (error) {
-      console.error(error);
+      console.error('Axios error:', error.response ? error.response.data : error.message);
       setError('Ocorreu um erro ao tentar fazer login.');
     }
-  }
+  };
 
   if (isLogged) return <Navigate to="/home" />;
 
@@ -52,6 +57,7 @@ function Login() {
         <button 
           className="login_button"
           type="submit"
+          onClick={login}
         >
           Entrar
         </button>
