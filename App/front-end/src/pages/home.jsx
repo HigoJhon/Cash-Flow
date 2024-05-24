@@ -10,25 +10,17 @@ function Home() {
   const [activeButton, setActiveButton] = useState('dashboard');
   const [page, setPage] = useState('dashboard');
 
-  const handleClick = () => {
+  const renderPage = () => {
     if (page === 'dashboard') {
-      return (
-        <Dashboard />
-      )
+      return <Dashboard />;
     }
     if (page === 'newWallet') {
-      return (
-        <NewWallet 
-          setPage={setPage}
-          setActiveButton={setActiveButton}
-        />
-      )
+      return <NewWallet setPage={setPage} setActiveButton={setActiveButton} />;
     }
     if (page === 'edit') {
-      return (
-        <EditWallet />
-      )
+      return <EditWallet />;
     }
+    return null; // Adicione um retorno padrão
   };
 
   return (
@@ -39,9 +31,7 @@ function Home() {
           setPage={setPage}
           activeButton={activeButton}
         />
-        {
-          handleClick()
-        }
+        {renderPage()}
       </div>
       <Footer />
     </div>

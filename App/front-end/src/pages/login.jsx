@@ -23,8 +23,8 @@ function Login() {
         setError('Por favor, insira email e senha.');
       }
     } catch (error) {
-      console.error('Axios error:', error.response ? error.response.data : error.message);
-      setError('Ocorreu um erro ao tentar fazer login.');
+      console.error('Axios error:', error.response.data.message);
+      setError(error.response.data.message);
     }
   };
 

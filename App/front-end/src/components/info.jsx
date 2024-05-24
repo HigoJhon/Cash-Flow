@@ -7,8 +7,6 @@ import Sair from "../images/icon/sair.png";
 import propTypes from "prop-types";
 
 function Info({ setPage, setActiveButton, activeButton}) {
-    // const [activeButton, setActiveButton] = useState('dashboard');
-
     const handleClick = (buttonPage) => {
         setActiveButton(buttonPage);
         setPage(buttonPage);
@@ -25,7 +23,6 @@ function Info({ setPage, setActiveButton, activeButton}) {
                 <button 
                     onClick={() => handleClick('dashboard')} 
                     className={`info-button ${activeButton === 'dashboard' ? 'active' : ''}`}
-                    setPage={"dashboard"}
                 >
                     <img height="20px" src={Painel} alt="" /> Dashboard
                 </button>
