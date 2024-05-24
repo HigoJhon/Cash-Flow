@@ -1,6 +1,7 @@
 using back_end.Models;
 using back_end.Repository;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace back_end.Controllers
 {
@@ -18,28 +19,29 @@ namespace back_end.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] User user)
         {
-            if (user.Email == null || user.Password == null)
+            try
             {
-                return BadRequest();
+                User loginUser = _userRepository.Login(user.Email!, user.Password!);
+                return Ok("Login successful");
             }
-            
-            User loginUser = _userRepository.Login(user.Email!, user.Password!);
-            if (loginUser == null)
+            catch (ArgumentException ex)
             {
-                return NotFound();
+                return NotFound(new { message = ex.Message });
             }
-            return Ok("Login successful");
         }
 
         [HttpGet("{id}")]
         public IActionResult GetUser(int id)
         {
-            User user = _userRepository.GetUser(id);
-            if (user == null)
+            try
             {
-                return NotFound();
+                User user = _userRepository.GetUser(id);
+                return Ok(user);
             }
-            return Ok(user);
+            catch (ArgumentException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
         }
 
         [HttpPost("add")]
@@ -52,7 +54,7 @@ namespace back_end.Controllers
             }
             catch (ArgumentException e)
             {
-                return BadRequest( new { message = e.Message } );
+                return Conflict(new { message = e.Message });
             }
         }
 
@@ -61,26 +63,32 @@ namespace back_end.Controllers
         {
             if (id != user.NameId)
             {
-                return BadRequest();
+                return BadRequest(new { message = "User ID does not match the provided ID." });
             }
 
-            User updatedUser = _userRepository.UpdateUser(user);
-            if (updatedUser == null)
+            try
             {
-                return NotFound();
+                User updatedUser = _userRepository.UpdateUser(user);
+                return Ok(updatedUser);
             }
-            return Ok(updatedUser);
+            catch (ArgumentException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteUser(int id)
         {
-            User user = _userRepository.DeleteUser(id);
-            if (user == null)
+            try
             {
-                return NotFound();
+                User user = _userRepository.DeleteUser(id);
+                return Ok(user);
             }
-            return Ok(user);
+            catch (ArgumentException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
         }
     }
 }

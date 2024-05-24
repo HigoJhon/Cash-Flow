@@ -6,13 +6,10 @@ public class User
 {
     [Key]
     public int NameId { get; set; }
-    [Required]
     public string? Name { get; set; }
-    [Required]
     public string? Telephone { get; set; }
     [Required]
     [EmailAddress]
-    [UniqueEmail()]
     public string? Email { get; set; }
     [Required]
     [MinLength(6)]

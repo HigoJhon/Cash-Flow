@@ -14,14 +14,24 @@ namespace back_end.Repository
 
         public User Login(string email, string password)
         {
-            return _context.Users.SingleOrDefault(user => user.Email == email && user.Password == password)!;
+            var user = _context.Users.FirstOrDefault(u => u.Email == email);
+            if (user == null)
+            {
+                throw new ArgumentException("Email not registered.");
+            }
+            if (user.Password != password)
+            {
+                throw new ArgumentException("Incorrect password.");
+            }
+            return user;
         }
 
         public User AddUser(User user)
         {
-            if (_context.Users.Any(u => u.Email == user.Email))
+            var existingUser = _context.Users.FirstOrDefault(u => u.Email == user.Email);
+            if (existingUser != null)
             {
-                throw new ArgumentException("Email already exists");
+                throw new ArgumentException("Email already in use.");
             }
             _context.Users.Add(user);
             _context.SaveChanges();
@@ -30,11 +40,21 @@ namespace back_end.Repository
 
         public User GetUser(int id)
         {
-            return _context.Users.Find(id)!;
+            var user = _context.Users.Find(id);
+            if (user == null)
+            {
+                throw new ArgumentException("User not found.");
+            }
+            return user;
         }
 
         public User UpdateUser(User user)
         {
+            var existingUser = _context.Users.Find(user.NameId);
+            if (existingUser == null)
+            {
+                throw new ArgumentException("User not found.");
+            }
             _context.Users.Update(user);
             _context.SaveChanges();
             return user;
@@ -42,13 +62,14 @@ namespace back_end.Repository
 
         public User DeleteUser(int id)
         {
-            User user = _context.Users.Find(id)!;
-            if (user != null)
+            var user = _context.Users.Find(id);
+            if (user == null)
             {
-                _context.Users.Remove(user);
-                _context.SaveChanges();
+                throw new ArgumentException("User not found.");
             }
-            return user!;
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+            return user;
         }
     }
 }
