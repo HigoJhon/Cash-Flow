@@ -26,9 +26,7 @@ function NewUser() {
             console.log(response.status);
             setIsLogged(true);
         } catch (error) {
-            const errorStatus = error.response.data.errors;
-            console.error('Erro ao tentar criar usuário:', error.response.data.errors.Email);
-            setError(errorStatus.Email ? errorStatus.Email : errorStatus.Password );
+            setError(error.response.data.message);
         }
     }
 
@@ -103,6 +101,7 @@ function NewUser() {
                     <p>
                         Já tem uma conta? <a href="/">Faça login</a>
                     </p>
+                    <br />
                     {error && <p className="error-message">{error}</p>}
                 </form>
             </section>
