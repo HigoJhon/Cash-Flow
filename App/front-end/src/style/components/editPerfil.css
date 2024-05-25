@@ -1,0 +1,13 @@
+.form-edit {
+    /* background-color: aqua; */
+    width: 80%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.p-edit .span-edit {
+    color: blue;
+}

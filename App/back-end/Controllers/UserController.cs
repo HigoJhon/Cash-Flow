@@ -22,7 +22,12 @@ namespace back_end.Controllers
             try
             {
                 User loginUser = _userRepository.Login(user.Email!, user.Password!);
-                return Ok("Login successful");
+
+                return Ok(new
+                {
+                    userId = loginUser.NameId,
+                    message = "Login successful"
+                });
             }
             catch (ArgumentException ex)
             {

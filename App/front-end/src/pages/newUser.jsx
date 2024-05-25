@@ -3,27 +3,30 @@ import person from "../images/Open Peeps.png";
 import "../style/pages/newUser.css";
 import { postRequest } from "../Service/Request";
 import { Navigate } from "react-router-dom";
+import FormePerfil from "../components/formPerfil";
+import FormePassword from "../components/formePessword";
 
 function NewUser() {
-    const [name, setName] = useState('');
-    const [telephone, setTelephone] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [userForme, setUserForme] = useState({ name: '', telephone: '', email: '' });
+    const [password, setPassword] = useState({ password: '', confirmPassword: '' });
     const [isLogged, setIsLogged] = useState(false);
     const [error, setError] = useState('');
 
     const newUser = async (e) => {
         e.preventDefault();
 
-        if (password !== confirmPassword) {
+        if (password.password !== password.confirmPassword) {
             setError('As senhas não conferem.');
             return;
         }
 
         try {
-            const response = await postRequest('/User/add', { name, telephone, email, password });
-            console.log(response.status);
+            await postRequest('/User/add', { 
+                name: userForme.name, 
+                telephone: userForme.telephone, 
+                email: userForme.email, 
+                password: password.password 
+            });
             setIsLogged(true);
         } catch (error) {
             setError(error.response.data.message);
@@ -43,56 +46,14 @@ function NewUser() {
                 <form className="form-newUser" onSubmit={newUser}>
                     <h1>Criar conta</h1>
                     <div className="div-input-newUser">
-                        <label htmlFor="name-input">
-                            Nome
-                            <input
-                                type="text"
-                                className="create_input"
-                                placeholder="Joao da Silva"
-                                value={name}
-                                onChange={ (e) => setName(e.target.value)}
-                            />
-                        </label>
-                        <label htmlFor="phone-input">
-                            Numero
-                            <input
-                                type="number"
-                                className="create_input"
-                                placeholder="21 99999-9999"
-                                value={telephone}
-                                onChange={ (e) => setTelephone(e.target.value)}
-                            />
-                        </label>
-                        <label htmlFor="email-input">
-                            Email
-                            <input
-                                type="email"
-                                className="create_input"
-                                placeholder="exe@exe.com"
-                                value={email}
-                                onChange={ (e) => setEmail(e.target.value)}
-                            />
-                        </label>
-                        <label htmlFor="password-input">
-                            Senha
-                            <input
-                                type="password"
-                                className="create_input"
-                                placeholder="*********"
-                                value={password}
-                                onChange={ (e) => setPassword(e.target.value)}
-                            />
-                        </label>
-                        <label htmlFor="confirm-password-input">
-                            Confirme a senha
-                            <input
-                                type="password"
-                                className="create_input"
-                                placeholder="*********"
-                                value={confirmPassword}
-                                onChange={ (e) => setConfirmPassword(e.target.value)}
-                            />
-                        </label>
+                        <FormePerfil 
+                            userForme={userForme}
+                            setUserForme={setUserForme}
+                        />
+                        <FormePassword 
+                            password={password}
+                            setPassword={setPassword}
+                        />
                     </div>
                     <button className="create_button" type="submit">
                         Cadastrar

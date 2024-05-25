@@ -39,7 +39,7 @@ function Info({ setPage, setActiveButton, activeButton}) {
                     onClick={() => handleClick('edit')} 
                     className={`info-button ${activeButton === 'edit' ? 'active' : ''}`}
                 >
-                    <img height="20px" src={Lapis} alt="" /> Edit
+                    <img height="20px" src={Lapis} alt="" /> Profile
                 </button>
             </div>
             <div className="line" />

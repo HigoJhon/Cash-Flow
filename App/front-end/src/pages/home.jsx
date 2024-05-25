@@ -3,7 +3,7 @@ import Footer from "../components/footer";
 import Info from "../components/info";
 import "../style/pages/home.css";
 import Dashboard from "../components/dashboard";
-import EditWallet from "../components/editWallet";
+import EditPerfil from "../components/editPerfil";
 import NewWallet from "../components/newWallet";
 
 function Home() {
@@ -18,9 +18,9 @@ function Home() {
       return <NewWallet setPage={setPage} setActiveButton={setActiveButton} />;
     }
     if (page === 'edit') {
-      return <EditWallet />;
+      return <EditPerfil />;
     }
-    return null; // Adicione um retorno padrão
+    return null;
   };
 
   return (

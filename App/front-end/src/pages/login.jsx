@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import "../style/pages/login.css";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { postRequest } from "../Service/Request";
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLogged, setIsLogged] = useState(false);
+  // const [isLogged, setIsLogged] = useState(false);
   const [error, setError] = useState('');
+
+  const navigate = useNavigate();
 
   useEffect(() => {}, [email, password]);
 
@@ -16,20 +18,18 @@ function Login() {
 
     try {
       if (email && password) {
-        const response = await postRequest('/User/login', { email, password });
-        console.log(response);
-        setIsLogged(true);
+        const { data : { userId }} = await postRequest('/User/login', { email, password });
+        localStorage.setItem('userId', userId);
+        navigate("/home", { state: { userId }})
+        // setIsLogged(true);
       } else {
         setError('Por favor, insira email e senha.');
       }
     } catch (error) {
-      console.error('Axios error:', error.response.data.message);
-      setError(error.response.data.message);
+      setError(error.response);
     }
   };
-
-  if (isLogged) return <Navigate to="/home" />;
-
+  
   return (
     <section className="user-login-area">
       <form onSubmit={login}>

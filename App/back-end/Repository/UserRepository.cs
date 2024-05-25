@@ -55,9 +55,26 @@ namespace back_end.Repository
             {
                 throw new ArgumentException("User not found.");
             }
-            _context.Users.Update(user);
+
+            if (!string.IsNullOrEmpty(user.Name))
+            {
+                existingUser.Name = user.Name;
+            }
+            if (!string.IsNullOrEmpty(user.Email))
+            {
+                existingUser.Email = user.Email;
+            }
+            if (!string.IsNullOrEmpty(user.Telephone))
+            {
+                existingUser.Telephone = user.Telephone;
+            }
+            if (!string.IsNullOrEmpty(user.Password))
+            {
+                existingUser.Password = user.Password;
+            }
+
             _context.SaveChanges();
-            return user;
+            return existingUser;
         }
 
         public User DeleteUser(int id)

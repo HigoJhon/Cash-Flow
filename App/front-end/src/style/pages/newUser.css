@@ -44,6 +44,10 @@
     font-family: 'Courier New', Courier, monospace;
 }
 
+/* .div-input-newUser label {
+    width: 250px;
+} */
+
 .form-newUser label {
     width: 48%;
     display: flex;

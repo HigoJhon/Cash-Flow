@@ -16,3 +16,8 @@ export const postRequest = async (endpoint, data) => {
     const response = await api.post(endpoint, data);
     return response;
 };
+
+export const putRequests = async (endpoint, data) => {
+    const response = await api.put(endpoint, data);
+    return response;
+}
