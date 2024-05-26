@@ -29,8 +29,7 @@ function EditPerfil() {
 
     try {
       const userId = location.state.userId;
-      console.log(userId);
-  
+      
       await putRequests(`/User/${userId}`, {
         nameId: userId,
         name: userForme.name, 

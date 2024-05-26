@@ -1,11 +1,17 @@
 import propTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Loading from './loading';
 import "../style/components/newWallet.css";
+import { postRequest } from '../Service/Request';
 
 function NewWallet({ setPage, setActiveButton }) {
     const [loading, setLoading] = useState(true);
+    const [walletName, setWalletName] = useState('');
+    const [description, setDescription] = useState('');
+    const [investment, setInvestment] = useState(0);
+
+    const location = useLocation();
 
     useEffect(() => {
       setTimeout(() => {
@@ -17,10 +23,23 @@ function NewWallet({ setPage, setActiveButton }) {
       return <Loading />;
     }
 
-    const handleClick = () => {
-        setPage('dashboard');
-        setActiveButton('dashboard');
-        <Link to="/dashboard" />;
+    const handleClick = async () => {
+        const userId = location.state.userId;
+        try {
+            const response =  await postRequest("/Wallet", {
+                nameId: userId,
+                walletName: walletName,
+                description: description,
+                investment: investment,
+            });
+
+            console.log(response);
+            setPage('dashboard');
+            setActiveButton('dashboard');
+            <Link to="/dashboard" />;
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -29,15 +48,33 @@ function NewWallet({ setPage, setActiveButton }) {
             <div>
                 <form className='form-wallet'>
                     <label htmlFor="name">Name: </label>
-                    <input className='input-wallet' type="text" id="name" name="name" placeholder="House"/>
+                    <input className='input-wallet' 
+                        type="text" 
+                        name="name" 
+                        placeholder="House" 
+                        value={walletName} 
+                        onChange={ (e) => setWalletName(e.target.value) }
+                    />
                     <br />
                     <label htmlFor="description">Description: </label>
-                    <input className='input-wallet' type="text" id="description" name="description" placeholder="Home renovation expenses"/>
+                    <input className='input-wallet' 
+                        type="text" 
+                        name="description" 
+                        placeholder="Home renovation expenses" 
+                        value={description}
+                        onChange={ (e) => setDescription(e.target.value) }
+                    />
                     <br />
                     <label htmlFor="balance">Investment: </label>
-                    <input className='input-wallet' type="number" id="investment" name="investment" placeholder="0,00"/>
+                    <input className='input-wallet' 
+                        type="number" 
+                        name="investment" 
+                        placeholder="0,00" 
+                        value={investment} 
+                        onChange={ (e) => setInvestment(e.target.value) }
+                    />
                     <br />
-                    <button className='button-wallet' type="submit" onClick={ () => handleClick() }>Create</button>
+                    <button className='button-wallet' type="button" onClick={ () => handleClick() }>Create</button>
                 </form>
             </div>
         </div>
