@@ -6,6 +6,7 @@ namespace back_end.Context
     public interface IWalletContext
     {
         DbSet<User> Users { get; set; }
+        DbSet<Wallet> Wallets { get; set; }
 
         int SaveChanges();
     }

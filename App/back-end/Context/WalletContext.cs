@@ -5,7 +5,8 @@ namespace back_end.Context;
 
 public class WalletContext : DbContext, IWalletContext
 {
-    public DbSet<User> Users { get; set; }
+    public DbSet<User> Users { get; set; } = null!;
+    public DbSet<Wallet> Wallets { get; set; } = null!;
 
     public WalletContext(DbContextOptions<WalletContext> options) : base(options)
     {

@@ -34,7 +34,7 @@ function NewUser() {
     }
 
     if (isLogged) {
-        return <Navigate to="/home" />;
+        return <Navigate to="/" />;
     }
 
     return (

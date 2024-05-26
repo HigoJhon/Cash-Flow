@@ -8,6 +8,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<WalletContext>();
 builder.Services.AddScoped<IWalletContext, WalletContext>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IWalletRepository, WalletRepository>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins",

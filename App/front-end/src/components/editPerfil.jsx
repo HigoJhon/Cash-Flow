@@ -11,11 +11,21 @@ function EditPerfil() {
   const [userForme, setUserForme] = useState({ name: '', telephone: '', email: '' });
   const [password, setPassword] = useState({ password: '', confirmPassword: '' });
   const [editPassword, setEditPassword] = useState(true)
+  const [error, setError] = useState('');
 
   const location = useLocation()
   const navigate = useNavigate();
 
   const handleProfile = async () => {
+    if (password.password !== password.confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    if (password.password.length < 6) {
+      setError('Password must have at least 6 characters');
+      return;
+    }
 
     try {
       const userId = location.state.userId;
@@ -52,11 +62,6 @@ function EditPerfil() {
                     setUserForme={setUserForme}
                     />
               </div>
-              <br />
-              <button className="create_button" type="button" onClick={() => handleProfile()} >
-                New Profile
-              </button>
-              <br />
               <p className="p-edit">
                 Update password ?
                 <span className="span-edit" onClick={() => setEditPassword(false)} > here !</span>
@@ -71,15 +76,20 @@ function EditPerfil() {
                     setPassword={setPassword}
                 />
                 <br />
-                {/* <button className="create_button" type="button" onClick={() => setEditPassword(true)}>
-                  Edit Profile
-                </button> */}
+                <p style={ { color:"red"}} >
+                  {error && <p className="error-message">{error}</p>}
+                </p>
+                <br />
                 <p className="p-edit">
                  Update profile ?
                 <span className="span-edit" onClick={() => setEditPassword(true)} > here !</span>
                 </p>
             </>
           }
+          <br />
+          <button className="create_button" type="button" onClick={() => handleProfile()} >
+                New Profile
+              </button>
       </form>
     </main>
   );
