@@ -25,6 +25,14 @@ function NewWallet({ setPage, setActiveButton }) {
 
     const handleClick = async () => {
         const userId = location.state.userId;
+        if (!walletName || !description || !investment) {
+            alert('Please fill all fields');
+            return;
+        }
+
+        if (userId === undefined) {
+            <Link to="/" />;
+        }
         try {
             const response =  await postRequest("/Wallet", {
                 nameId: userId,

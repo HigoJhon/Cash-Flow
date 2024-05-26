@@ -5,12 +5,21 @@ import Mais from "../images/icon/mais.png";
 import Lapis from "../images/icon/ferramenta-lapis.png";
 import Sair from "../images/icon/sair.png";
 import propTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 function Info({ setPage, setActiveButton, activeButton}) {
+    const navigate = useNavigate();
+
     const handleClick = (buttonPage) => {
         setActiveButton(buttonPage);
         setPage(buttonPage);
     };
+
+    const handleExit = () => {
+        console.log('sair');
+        localStorage.clear();
+        navigate('/');
+    }
 
     return (
         <div className="container-info">
@@ -44,9 +53,9 @@ function Info({ setPage, setActiveButton, activeButton}) {
             </div>
             <div className="line" />
             <div className="div-info">
-                <a href="/" className="info-button">
-                    <p><img height="20px" src={Sair} alt="" /> Exit</p>
-                </a>
+                <button className="info-button" onClick={ () => handleExit()}>
+                    <img height="20px" src={Sair} alt="" /> Exit
+                </button>
             </div>
         </div>
     );
