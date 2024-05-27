@@ -11,7 +11,7 @@ using back_end.Context;
 namespace back_end.Migrations
 {
     [DbContext(typeof(WalletContext))]
-    [Migration("20240526213713_walletTale")]
+    [Migration("20240527025117_walletTale")]
     partial class walletTale
     {
         /// <inheritdoc />
@@ -60,8 +60,8 @@ namespace back_end.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Investment")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Investment")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NameId")
                         .HasColumnType("int");

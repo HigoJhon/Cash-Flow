@@ -16,20 +16,6 @@ namespace back_end.Controllers
             _walletRepository = walletRepository;
         }
 
-        // [HttpGet("{id}")]
-        // public IActionResult GetWallet(int id)
-        // {
-        //     try
-        //     {
-        //         var wallet = _walletRepository.GetAllWallet(id);
-        //         return Ok(wallet);
-        //     }
-        //     catch (Exception e)
-        //     {
-        //         return BadRequest(e.Message);
-        //     }
-        // }
-
         [HttpGet("{id}")]
         public List<Wallet> GetWallet(int id)
         {

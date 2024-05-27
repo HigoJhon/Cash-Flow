@@ -57,8 +57,8 @@ namespace back_end.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Investment")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Investment")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NameId")
                         .HasColumnType("int");

@@ -9,19 +9,22 @@ function NewWallet({ setPage, setActiveButton }) {
     const [loading, setLoading] = useState(true);
     const [walletName, setWalletName] = useState('');
     const [description, setDescription] = useState('');
-    const [investment, setInvestment] = useState(0);
+    const [investment, setInvestment] = useState("");
 
     const location = useLocation();
 
     useEffect(() => {
-      setTimeout(() => {
-        setLoading(false);
-      }, 800);
+        setTimeout(() => {
+            setLoading(false);
+        }, 800);
     }, []);
-  
-    if (loading) {
-      return <Loading />;
-    }
+
+    const handleInvestmentChange = (e) => {
+        const value = e.target.value.replace(',', '.');
+        if (/^\d*\.?\d{0,2}$/.test(value)) {
+            setInvestment(value.replace('.', ','));
+        }
+    };
 
     const handleClick = async () => {
         const userId = location.state.userId;
@@ -31,14 +34,16 @@ function NewWallet({ setPage, setActiveButton }) {
         }
 
         if (userId === undefined) {
-            <Link to="/" />;
+            return <Link to="/" />;
         }
+
         try {
-            const response =  await postRequest("/Wallet", {
+            const formattedInvestment = parseFloat(investment.replace(',', '.')).toFixed(2);
+            const response = await postRequest("/Wallet", {
                 nameId: userId,
                 walletName: walletName,
                 description: description,
-                investment: investment,
+                investment: formattedInvestment,
             });
 
             console.log(response);
@@ -48,6 +53,10 @@ function NewWallet({ setPage, setActiveButton }) {
         } catch (error) {
             console.log(error);
         }
+    };
+
+    if (loading) {
+        return <Loading />;
     }
 
     return (
@@ -56,37 +65,38 @@ function NewWallet({ setPage, setActiveButton }) {
             <div>
                 <form className='form-wallet'>
                     <label htmlFor="name">Name: </label>
-                    <input className='input-wallet' 
-                        type="text" 
-                        name="name" 
-                        placeholder="House" 
-                        value={walletName} 
-                        onChange={ (e) => setWalletName(e.target.value) }
+                    <input className='input-wallet'
+                        type="text"
+                        name="name"
+                        placeholder="House"
+                        value={walletName}
+                        onChange={(e) => setWalletName(e.target.value)}
                     />
                     <br />
                     <label htmlFor="description">Description: </label>
-                    <input className='input-wallet' 
-                        type="text" 
-                        name="description" 
-                        placeholder="Home renovation expenses" 
+                    <input className='input-wallet'
+                        type="text"
+                        name="description"
+                        placeholder="Home renovation expenses"
                         value={description}
-                        onChange={ (e) => setDescription(e.target.value) }
+                        onChange={(e) => setDescription(e.target.value)}
                     />
                     <br />
-                    <label htmlFor="balance">Investment: </label>
-                    <input className='input-wallet' 
-                        type="number" 
-                        name="investment" 
-                        placeholder="0,00" 
-                        value={investment} 
-                        onChange={ (e) => setInvestment(e.target.value) }
+                    <label htmlFor="investment">Investment: </label>
+                    <input className='input-wallet'
+                        type="text"
+                        name="investment"
+                        placeholder="0,00"
+                        value={investment}
+                        onChange={handleInvestmentChange}
+                        onBlur={() => setInvestment((prev) => parseFloat(prev.replace(',', '.')).toFixed(2).replace('.', ','))}
                     />
                     <br />
-                    <button className='button-wallet' type="button" onClick={ () => handleClick() }>Create</button>
+                    <button className='button-wallet' type="button" onClick={handleClick}>Create</button>
                 </form>
             </div>
         </div>
-    )
+    );
 }
 
 NewWallet.propTypes = {
