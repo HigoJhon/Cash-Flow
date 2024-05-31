@@ -30,6 +30,10 @@ function Dashboard() {
     }, 2000);
   }, []);
 
+  const editFluxo = () => {
+    console.log("editFluxo");
+  }
+
   if (loading) {
     return <Loading />;
   }
@@ -43,7 +47,7 @@ function Dashboard() {
               <p>{wallet.description}</p>
               <p>Investiment: {wallet.investment}</p>
               <br />
-              <button type="button">Fluxo</button>
+              <button type="button" onClick={() => editFluxo()}>Add Fluxo</button>
             </li>
           ))}
         </ul>

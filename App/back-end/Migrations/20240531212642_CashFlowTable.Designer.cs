@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using back_end.Context;
 
@@ -11,9 +12,11 @@ using back_end.Context;
 namespace back_end.Migrations
 {
     [DbContext(typeof(WalletContext))]
-    partial class WalletContextModelSnapshot : ModelSnapshot
+    [Migration("20240531212642_CashFlowTable")]
+    partial class CashFlowTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,10 +37,10 @@ namespace back_end.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Expense")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Profit")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("WalletId")
                         .HasColumnType("int");
@@ -87,7 +90,7 @@ namespace back_end.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Investment")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("NameId")
                         .HasColumnType("int");

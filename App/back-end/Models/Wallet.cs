@@ -11,5 +11,5 @@ public class Wallet
     public int NameId { get; set; }
     public string? WalletName { get; set; }
     public string? Description { get; set; }
-    public string? Investment { get; set; }
+    public decimal Investment { get; set; }
 }

@@ -7,6 +7,7 @@ namespace back_end.Context
     {
         DbSet<User> Users { get; set; }
         DbSet<Wallet> Wallets { get; set; }
+        DbSet<CashFlow> CashFlows { get; set; }
 
         int SaveChanges();
     }
