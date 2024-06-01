@@ -27,14 +27,13 @@ namespace back_end.Repository
             return new CashFlowResponseDto
             {
                 CashFlowId = cashFlow.CashFlowId,
-                WalletId = cashFlow.WalletId,
+                WalletId = cashFlow.Wallet!.WalletId,
                 Expense = cashFlow.Expense,
                 Profit = cashFlow.Profit,
                 Date = cashFlow.Date,
                 Wallet = new CashFlowResponseDto.WalletDto
                 {
-                    WalletId = cashFlow.Wallet.WalletId,
-                    NameId = cashFlow.Wallet.NameId,
+                    NameId = cashFlow.Wallet!.NameId,
                     WalletName = cashFlow.Wallet.WalletName,
                     Description = cashFlow.Wallet.Description,
                     Investment = cashFlow.Wallet.Investment

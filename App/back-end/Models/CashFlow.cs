@@ -15,6 +15,6 @@ namespace back_end.Models
         public decimal Profit { get; set; }
         public DateTime Date { get; set; }
 
-        public Wallet Wallet { get; set; }
+        public Wallet? Wallet { get; set; }
     }    
 }

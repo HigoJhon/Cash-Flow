@@ -40,7 +40,7 @@ namespace back_end.Controllers
             try
             {
                 CashFlow newCashFlow = _cashFlowRepository.AddCashFlow(cashFlow);
-                return CreatedAtAction(nameof(Get), new { id = newCashFlow.CashFlowId }, newCashFlow);
+                return Ok(newCashFlow);
             }
             catch (ArgumentException ex)
             {
